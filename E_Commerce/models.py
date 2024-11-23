@@ -1,7 +1,6 @@
 from django.db import models
 # Create your models here.
 
-
 #The relationship between customer and order is that one customer can have many orders (One-Many relationship)
 class Customer(models.Model):#The customer model represents customer entity
 
@@ -17,23 +16,21 @@ class Customer(models.Model):#The customer model represents customer entity
 #Order model represents an order placed by the customer
 #It has a one-many relationship:Each order belongs to one Customer
 #The foreign key establishes a link between the order model and the customer model
-
-
-
 # Create your models here
 
 class Order(models.Model):
     # ForeignKey linking to the Customer model
     customer = models.ForeignKey(
         Customer,
-        on_delete=models.CASCADE,  # Delete orders if the associated customer is deleted
-        related_name='orders'  # Access orders through customer.orders.all()
+        on_delete=models.CASCADE,  # Deletes orders if the associated customer is deleted
+        related_name='orders'  # Enables accessing  all orders of a customer via customer.order.all()
+
     )
 
     # Automatically set the date and time when an order is created
     order_date = models.DateTimeField(auto_now_add=True)
 
-    # Store the total amount with 10 digits and 2 decimal places
+    # Store the total order amount with 10 digits and 2 decimal places
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
